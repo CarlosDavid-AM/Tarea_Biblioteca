@@ -10,4 +10,8 @@ router.get("/", productoController.obtenerLibros);
 
 router.get("/:id", productoController.obtenerLibrosPorId);
 
+router.put("/:id", productoController.actualizarLibro);
+
+router.delete("/:id", productoController.eliminarLibro);
+
 module.exports = router;
