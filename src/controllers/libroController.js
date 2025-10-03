@@ -2,7 +2,33 @@ const db = require("../config/db");
 
 // Metodos
 exports.crearLibro = async (req, res) => {
-  console.log("Ejecutaste el POST");
+  const { titulo, autor, numpaginas, categoria } = req.body;
+
+  // Vlidacion
+  if (!titulo || !autor || numpaginas == undefined || !categoria) {
+    return res.status(400).json({ message: "Falta completar los campos" });
+  }
+
+  // El comodin tiene un indice similar al array
+  const sql =
+    "INSERT INTO libros (titulo, autor, numpaginas, categoria) VALUES (?,?,?,?)";
+
+  try {
+    const [result] = await db.query(sql, [
+      titulo,
+      autor,
+      numpaginas,
+      categoria,
+    ]);
+
+    res.status(201).json({
+      id: result.insertId,
+      message: "Registrado correctamente",
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: "Error Interno en el Servidor" });
+  }
 };
 
 exports.obtenerLibros = async (req, res) => {
