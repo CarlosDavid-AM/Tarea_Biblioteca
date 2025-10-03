@@ -32,7 +32,7 @@ exports.obtenerLibrosPorId = async (req, res) => {
       return res.status(404).json({ message: "No encontramos el libro" });
     }
 
-    res.status(200).json(libros);
+    res.status(200).json(libros[0]);
   } catch (e) {
     console.error(e);
     res.status(500).json({ message: "Error Interno en el Servidor" });
